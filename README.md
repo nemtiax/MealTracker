@@ -11,3 +11,5 @@ The user can adjust three parameters during analysis - the maximum allowable dev
 
 # Display 
 ![Screenshot](screenshots/Example.png)
+
+Blue zones indicate stable reading period, and horizontal blue lines indicate the average reading during that period.  Red zones indicate meals, and white zones indicate non-stable periods which are not meals (either because they do not show a sufficient decrease, or because no stable reading can be established before or after).
