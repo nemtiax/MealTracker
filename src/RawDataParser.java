@@ -21,10 +21,14 @@ public class RawDataParser {
 			}
 			String subjectName = parsedItems[0];
 			String status = parsedItems[3];
-			if(!status.equals("Stable")) continue;
+			if(!status.equals("Stable")) {
+				System.err.println("Non-stable line being skipped: " + line);
+				continue;
+			}
 			if(currentSubject==null) { //if this is the start of the file, the currentSubject will be null
 				currentSubject = new Subject(subjectName);
 				subjects.add(currentSubject);
+				
 			} else if(!currentSubject.getName().equals(subjectName)) { //if we've finished one subject and started a new one
 				currentSubject = new Subject(subjectName);
 				subjects.add(currentSubject);
@@ -42,10 +46,10 @@ public class RawDataParser {
 	}
 	/*
 	 * These files begin with several lines of header information describing the contents.  We skip through them,
-	 * stopping once we see the line starting with "TIME,EXPERIMENT,SCALE," as this indicates the start of data.
+	 * stopping once we see the line starting with "EXPERIMENT,SCALE,SUBJECT ID," as this indicates the start of data.
 	 */
 	private static void skipHeader(Scanner s) {
-		while(!s.nextLine().startsWith("TIME,EXPERIMENT,SCALE,")){}
+		while(!s.nextLine().startsWith("EXPERIMENT,SCALE,SUBJECT ID,")){}
 	}
 	/*
 	 * We need to get four things from a line - the subject name, the timestamp, the scale weight, and the status
@@ -53,10 +57,10 @@ public class RawDataParser {
 	private static String[] parseLine(String line) {
 		String[] items = line.split(",");
 		String[] result = new String[4];
-		result[0] = items[3]; //subject name
-		result[1] = items[0]; //timestamp
+		result[0] = items[2]; //subject name
+		result[1] = items[13]; //timestamp
 		result[2] = items[15]; //weight
-		result[3] = items[16];
+		result[3] = items[16]; //status
 		return result;
 	}
 }
