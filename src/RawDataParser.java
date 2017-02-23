@@ -58,7 +58,7 @@ public class RawDataParser {
 		String[] items = line.split(",");
 		String[] result = new String[4];
 		result[0] = items[2]; //subject name
-		result[1] = items[13]; //timestamp
+		result[1] = items[14]; //timestamp
 		result[2] = items[15]; //weight
 		result[3] = items[16]; //status
 		return result;
